@@ -1,0 +1,36 @@
+Sub SendEpost()
+
+Dim wb As Workbook
+Dim sh1 As Worksheet
+
+Dim mail As String
+Dim adress As String
+Dim OutputTxt As String
+Dim txt1 As String
+
+Dim ○App As Object
+Dim ○Mail As Object
+
+Set wb = ThisWokrbook
+Set sh1 = wb.Sheets("Ark1")
+
+Application.ScreenUpdating = False
+
+'Henter info fra inputs
+Mail = sh1.Range("C10").Value & ", " & sh1.Range("C11").Value
+
+'Definer og hent tekst-input for mail
+txt1 = sh1.Range("C14")
+
+'Opprett og vis Outlook mail. Legg ved fil
+Set ○App = CreateObject("Outlook.Application")
+Set ○Mail = ○App.CreateItem(0)
+With○Mail 
+	.to = mail
+	.Cc = ""
+	.Bcc = ""
+	.Subject = sh1.Range("C13")
+	.Body = "Hei, " & vbNewLine & vbNewLine & txt1
+	.Display
+End With
+End Sub
