@@ -1,0 +1,42 @@
+ ' oversett tekst
+
+
+For i = 3 To 900
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Company is on the Norwegian Council on Ethics exclusion list", "Oljefondets svarteliste")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Verified involvement in nuclear weapons", "Produksjon av kjernevåpen")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Verified involvement in anti-personnel mines", "Produksjon av kjernevåpen")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Verified involvement in cluster munitions", "Produksjon av klaseammunisjon")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "More than 5% of total revenue is derived from involvement in tobacco products", "Involvering i produksjon og/eller distribusjon av tobakk")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Verified involvement in anti-personnel mines Verified involvement in cluster munitions Verified involvement in nuclear weapons", "Involvert i kontroversielle våpen")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Verified and unaddressed failures to mitigate risk of military or security supplies being used in violation of human rights", "Krenkelser av individers rettigheter i krig og konflikt")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "More than 5% of total revenue is derived from thermal coal mining", "Inntekter fra termisk kulldrift")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "More than 5% of total revenue is derived from involvement in military equipment or services", "Involvert i produksjon og distribusjon av militærutstyr og tjenester")
+
+
+Nyeste per 31.08.2023 etter at Alexandra har kategorisert og endret 'svarteliste' til 'eksklusjonsliste'
+
+For i = 3 To 900
+' Oljefondets svarteliste
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Company is on the Norwegian Council on Ethics exclusion list", "Oljefondets eksklusjonsliste")
+
+' Kontroversielle våpen
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Verified involvement in nuclear weapons", "Verifisert involvering i kontroversielle våpen")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Verified involvement in anti-personnel mines", "Verifisert involvering i anti-personell miner")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Verified involvement in cluster munitions", "Verifisert involvering i klasevåpen")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Verified involvement in anti-personnel mines Verified involvement in cluster munitions Verified involvement in nuclear weapons", "Verifisert involvering i kontroversielle våpen")
+
+' Tobakk
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "More than 5% of total revenue is derived from involvement in tobacco products", "Mer enn 5% av inntektene kommer fra produksjon eller distribusjon av tobakkprodukter")
+
+'Brudd på menneskerettigheter og militær
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "Verified and unaddressed failures to mitigate risk of military or security supplies being used in violation of human rights", "Krenkelser av individers rettigheter i krig og konflikt")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "More than 5% of total revenue is derived from involvement in military equipment or services", "Mer enn 5% av inntektene kommer fra produksjon og/eller distribusjon av militærutstyr og tjenester")
+
+'Termisk kull og fossil energi
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "More than 5% of total revenue is derived from thermal coal mining", "Mer enn 5% av selskapets inntekter kommer fra termisk kulldrift")
+
+'3Q23
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "More than 15% of total revenue is derived from thermal coal mining", "Mer enn 15% av selskapets inntekter kommer fra termisk kulldrift")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "More than 5% of total revenue is derived from power generation from coal", "Mer enn 5% av selskapets inntekter kommer fra energiproduksjon fra termisk kull")
+shS.Cells(i, 14).Value = Replace(shS.Cells(i, 14).Value, "More than 20% of total revenue is derived from power generation from fossil fuel", "Mer enn 20% av selskapets inntekter kommer fra energiproduksjon fra fossile energikilder")
+
