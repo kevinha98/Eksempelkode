@@ -1,0 +1,47 @@
+Hvis scenario 1/2/3, send epost med tilhørende tekst
+
+Sub SendEpost()
+
+Dim wb As Workbook
+Dim sh1 As Worksheet
+
+Dim mail As String
+Dim adress As String
+Dim OutputTxt As String
+Dim txt1 As String
+
+Dim oApp As Object
+Dim oMail As Object
+
+Set wb = ThisWorkbook
+Set sh1 = wb.Sheets("Ark1")
+
+Application.ScreenUpdating = False
+
+'Henter info fra inputs
+mail = sh1.Range("C10").Value & ", " & sh1.Range("C11").Value
+ToDo = sh1.Range("C17").Value
+
+'Definer og hent tekst-input for mail
+If ToDo = "1" Then
+    txt1 = sh1.Range("E18")
+ElseIf ToDo = "2" Then
+    txt2 = sh1.Range("E19")
+ElseIf ToDo = "3" Then
+    txt3 = sh1.Range("E20")
+End If
+
+'Opprett og vis Outlook mail. Legg ved fil
+Set oApp = CreateObject("Outlook.Application")
+Set oMail = oApp.CreateItem(0)
+With oMail
+    .to = mail
+    .Cc = ""
+    .Bcc = ""
+    .Subject = sh1.Range("C13")
+    .Body = "Hei, " & vbNewLine & vbNewLine & txt1 & vbNewLine & txt2 & vbNewLine & txt3
+    .Display
+End With
+End Sub
+
+
