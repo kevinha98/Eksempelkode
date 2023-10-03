@@ -1,0 +1,76 @@
+Sub DeciCut()
+    Dim SourceFilePath As String
+    Dim DestFilePath As String
+    Dim Lagringsplass As String 'ikke brukt
+    Dim SourceWorkbook As Workbook
+    Dim DestWorkbook As Workbook
+    Dim SourceWorksheet As Worksheet
+    Dim DestWorksheet As Worksheet
+    Dim SourceLastRow As Long
+    Dim DestLastRow As Long
+    Dim SourceISINColumn As Range
+    Dim SourceDecimalColumn As Range
+    Dim DestISINColumn As Range
+    Dim DestDecimalColumn As Range
+    Dim i As Long
+
+    ' Definer filbaner
+    SourceFilePath = "C:\Users\" & Environ("Username") & "\DNB Bank ASA\t_Section Sbanken Sparing All - Drift og oppgjør\05. Flytt\03. ASK\02. ASK flytt\02. Flytt ut\ASK til ASK\NomineeTransferOut\FOD_12261_20230831_excelformat.xlsx"
+    DestFilePath = "C:\Users\" & Environ("Username") & "\DNB Bank ASA\t_Section Sbanken Sparing All - Drift og oppgjør\05. Flytt\03. ASK\02. ASK flytt\02. Flytt ut\ASK til ASK\NomineeTransferOut\DeciCut.xlsx"
+
+    ' Åpne excelark som viser sum desimaler per ISIN
+    Set SourceWorkbook = Workbooks.Open(DestFilePath)
+    ' Åpne kilden
+    Set SourceWorksheet = SourceWorkbook.Sheets(FOD_12261_20230831)
+
+    ' Finn siste rad i kilden
+    SourceLastRow = SourceWorksheet.Cells(SourceWorksheet.Rows.Count, "B").End(xlUp).Row
+
+    ' Definer kolonner med ISIN og desimaler i kilden
+    Set SourceISINColumn = SourceWorksheet.Range("B2:B" & SourceLastRow)
+    Set SourceDecimalColumn = SourceWorksheet.Range("J2:J" & SourceLastRow)
+
+    ' Åpne excelark som viser sum desimaler per ISIN
+    Set DestWorkbook = Workbooks.Open(SourceFilePath)
+    '
+    Set DestWorksheet = DestWorkbook.Sheets("FOD_12261_20230831")
+
+    ' Finn siste rad i målgrensesnittet
+    DestLastRow = DestWorksheet.Cells(DestWorksheet.Rows.Count, "L").End(xlUp).Row
+
+    ' Definer kolonner med ISIN og desimaler i målgrensesnittet
+    Set DestISINColumn = DestWorksheet.Range("L2:L" & DestLastRow)
+    Set DestDecimalColumn = DestWorksheet.Range("P2:P" & DestLastRow)
+
+    ' Loop gjennom hver rad i målgrensesnittet
+    For i = 50 To DestLastRow
+        Dim ISIN As String
+        Dim TargetDecimal As Integer
+        Dim SourceRow As Range
+
+        ' Hent ISIN og antall desimaler fra målgrensesnittet
+        ISIN = DestISINColumn.Cells(i, 1).Value
+        TargetDecimal = DestDecimalColumn.Cells(i, FOD_12261_20230831).Value
+
+        ' Finn tilsvarende rad i kilden
+        Set SourceRow = SourceISINColumn.Find(ISIN, LookIn:=xlValues)
+
+        ' Hvis ISIN er funnet i kilden, juster desimalene i målgrensesnittet
+        If Not SourceRow Is Nothing Then
+            Dim SourceDecimal As Integer
+            SourceDecimal = SourceDecimalColumn.Cells(SourceRow.Row, 50).Value
+            DestDecimalColumn.Cells(i, 50).Value = SourceDecimal
+        End If
+    Next i
+
+    ' Lagre målgrensesnittet som "DeciCutted.xlsm"
+    DestFilePath = Replace(DestFilePath, "DeciCut.xlsm", "DeciCutted.xlsm")
+    ' DestWorkbook.SaveAs Lagringsplass
+    ' DestWorkbook.Close SaveChanges:=False
+
+    ' Lukk kilderegnearket
+    'SourceWorkbook.Close SaveChanges:=False
+
+    ' Gi beskjed om at operasjonen er fullført
+    MsgBox "Desimaljusteringen er fullført. Resultatene er lagret i DeciCutted.xlsm."
+End Sub
